@@ -145,6 +145,7 @@ export default function HowToPlay() {
                         <a href="https://huggingface.co" target="_blank" rel="noreferrer" style={{ color: "#fbbf24", textDecoration: "underline", fontWeight: "600" }}>Hugging Face Inference Providers</a>.
                         {" "}YOLO mode includes an OpenClaw throwback to its creator.
                     </div>
+                    <div>Special thanks: Priyanka Main joined forces as beta tester and suggested awesome features.</div>
                 </div>
             </details>
         </div>

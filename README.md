@@ -147,4 +147,5 @@ When `Other (🤗HuggingFace)` is selected in 🦀 YOLO-mode setup:
 - AI attribution: character responses, level goals, and character generation are powered by [Mistral AI](https://mistral.ai) (`mistral-large-latest`).
 - Inference attribution: 🦀 YOLO mode player messages run via [Hugging Face Inference Providers](https://huggingface.co/docs/inference-providers).
 - Throwback attribution: 🦀 YOLO mode includes an OpenClaw throwback to its creator, Peter Steinberger ([gh](https://github.com/steipete)).
+- Special thanks: Priyanka Main joined forces as beta tester and suggested awesome features.
 - See also: [THIRD_PARTY_NOTICES.md](./THIRD_PARTY_NOTICES.md)
