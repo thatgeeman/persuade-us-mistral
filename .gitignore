@@ -1,5 +1,16 @@
-# Logs
-logs
+# ---- OS / Editor ----
+.DS_Store
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# ---- Logs ----
+logs/
 *.log
 npm-debug.log*
 yarn-debug.log*
@@ -7,24 +18,55 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules/
-dist
-dist-ssr
+# ---- Env / Secrets ----
+.env
+.env.*
 *.local
 
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
-.DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
-
-**/*.pyc
+# ---- Python ----
 __pycache__/
-**/*egg-info
-.env
-**/*.venv
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+.python-version
+
+# Virtual envs
+.venv/
+venv/
+env/
+ENV/
+backend/.venv/
+
+# Packaging / tooling
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+*.egg-info/
+*.egg
+pip-wheel-metadata/
+
+# ---- Node / Frontend ----
+node_modules/
+frontend/node_modules/
+dist/
+dist-ssr/
+frontend/dist/
+.vite/
+frontend/.vite/
+.npm/
+.pnpm-store/
+
+# ---- Runtime / Data ----
+*.sqlite
+*.sqlite3
+*.db
+backend/game.db
+
+# ---- Jupyter ----
+.ipynb_checkpoints/

@@ -63,7 +63,7 @@ export function GoalBanner({ goal, level }) {
   )
 }
 
-export function Timer({ seconds, totalSeconds = 90 }) {
+export function Timer({ seconds, totalSeconds = 300 }) {
   const { classic } = useTheme()
   const pct = seconds / totalSeconds
   const isLow = seconds <= 20
@@ -120,6 +120,16 @@ export function Timer({ seconds, totalSeconds = 90 }) {
           {display}
         </text>
       </svg>
+      <div style={{
+        fontSize: "12px",
+        fontWeight: "700",
+        color: isCritical ? "#ef4444" : "#111827",
+        fontFamily: "'SF Pro Text', -apple-system, sans-serif",
+        minWidth: "34px",
+        textAlign: "left",
+      }}>
+        {display}
+      </div>
     </div>
   )
 }

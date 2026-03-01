@@ -4,7 +4,7 @@ from pydantic import BaseModel
 
 
 class Message(BaseModel):
-    role: Literal["user", "assistant"]
+    role: Literal["user", "assistant", "system"]
     character: str | None = None
     content: str
 
@@ -12,6 +12,7 @@ class Message(BaseModel):
 class Character(BaseModel):
     name: str
     personality: str
+    relationship_blurb: str  # one-line relationship to the player
     resistance_level: float  # 0.0 easy, 1.0 stubborn
 
 
@@ -50,11 +51,14 @@ class GenerateCharactersRequest(BaseModel):
     level_number: int
     goal_description: str
     num_characters: int = 2
+    player_name: str | None = None
+    player_type: Literal["human", "llm"] | None = None
 
 
 class GeneratedCharacter(BaseModel):
     name: str
     personality: str
+    relationship_blurb: str
     resistance_level: float
     avatar_color_from: str  # hex, e.g. "#f97316"
     avatar_color_to: str  # hex
@@ -68,6 +72,8 @@ class GenerateLevelGoalRequest(BaseModel):
     level_number: int
     num_characters: int
     previous_goals: list[str] = []
+    player_name: str | None = None
+    player_type: Literal["human", "llm"] | None = None
 
 
 class GenerateLevelGoalResponse(BaseModel):
