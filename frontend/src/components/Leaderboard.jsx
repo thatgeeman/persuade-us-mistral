@@ -13,7 +13,7 @@ const TH = ({ children, style = {} }) => (
     <th style={{
         padding: "10px 14px",
         textAlign: "left",
-        fontSize: "10px",
+        fontSize: "12px",
         fontWeight: "700",
         letterSpacing: "0.1em",
         color: "rgba(255,255,255,0.4)",
@@ -28,7 +28,7 @@ const TH = ({ children, style = {} }) => (
 const TD = ({ children, style = {} }) => (
     <td style={{
         padding: "12px 14px",
-        fontSize: "13px",
+        fontSize: "16px",
         color: "#e2e8f0",
         fontFamily: "'SF Pro Text', -apple-system, sans-serif",
         borderBottom: "1px solid rgba(255,255,255,0.04)",
@@ -38,15 +38,15 @@ const TD = ({ children, style = {} }) => (
 
 function RankBadge({ rank }) {
     const medals = { 1: "🥇", 2: "🥈", 3: "🥉" }
-    if (medals[rank]) return <span style={{ fontSize: "16px" }}>{medals[rank]}</span>
-    return <span style={{ color: "rgba(255,255,255,0.3)", fontSize: "13px" }}>#{rank}</span>
+    if (medals[rank]) return <span style={{ fontSize: "19px" }}>{medals[rank]}</span>
+    return <span style={{ color: "rgba(255,255,255,0.3)", fontSize: "16px" }}>#{rank}</span>
 }
 
 function GameCodeBadge({ code }) {
     return (
         <span style={{
             fontFamily: "monospace",
-            fontSize: "12px",
+            fontSize: "14px",
             fontWeight: "700",
             color: "rgba(255,255,255,0.35)",
             background: "rgba(255,255,255,0.05)",
@@ -69,7 +69,7 @@ function PlayerTypeBadge({ type, model }) {
             border: `1px solid ${isLLM ? "rgba(139,92,246,0.3)" : "rgba(16,185,129,0.3)"}`,
             borderRadius: "6px",
             padding: "2px 8px",
-            fontSize: "11px",
+            fontSize: "13px",
             color: isLLM ? "#a78bfa" : "#34d399",
             fontFamily: "'SF Pro Text', -apple-system, sans-serif",
             fontWeight: "600",
@@ -121,17 +121,17 @@ export default function Leaderboard() {
 
             {/* Header */}
             <div style={{ marginBottom: "28px" }}>
-                <div style={{ fontSize: "24px", fontWeight: "700", color: "#fff", fontFamily: "'SF Pro Text', -apple-system, sans-serif", marginBottom: "4px" }}>
+                <div style={{ fontSize: "29px", fontWeight: "700", color: "#fff", fontFamily: "'SF Pro Text', -apple-system, sans-serif", marginBottom: "4px" }}>
                     Leaderboard
                 </div>
-                <div style={{ fontSize: "13px", color: "rgba(255,255,255,0.4)", fontFamily: "'SF Pro Text', -apple-system, sans-serif" }}>
+                <div style={{ fontSize: "16px", color: "rgba(255,255,255,0.4)", fontFamily: "'SF Pro Text', -apple-system, sans-serif" }}>
                     {total} game session{total !== 1 ? "s" : ""} recorded
                 </div>
             </div>
 
             {/* Search */}
             <div style={{ position: "relative", marginBottom: "20px" }}>
-                <span style={{ position: "absolute", left: "14px", top: "50%", transform: "translateY(-50%)", fontSize: "14px", opacity: 0.4 }}>🔍</span>
+                <span style={{ position: "absolute", left: "14px", top: "50%", transform: "translateY(-50%)", fontSize: "17px", opacity: 0.4 }}>🔍</span>
                 <input
                     type="text"
                     placeholder="Search by player name..."
@@ -142,7 +142,7 @@ export default function Leaderboard() {
                         background: "rgba(255,255,255,0.05)",
                         border: "1px solid rgba(255,255,255,0.1)",
                         borderRadius: "12px", padding: "11px 14px 11px 40px",
-                        color: "#fff", fontSize: "14px",
+                        color: "#fff", fontSize: "17px",
                         fontFamily: "'SF Pro Text', -apple-system, sans-serif",
                         outline: "none",
                     }}
@@ -162,7 +162,7 @@ export default function Leaderboard() {
                         border: playerFilter === value ? "1px solid rgba(255,255,255,0.25)" : "1px solid rgba(255,255,255,0.08)",
                         background: playerFilter === value ? "rgba(255,255,255,0.1)" : "transparent",
                         color: playerFilter === value ? "#fff" : "rgba(255,255,255,0.4)",
-                        fontSize: "12px",
+                        fontSize: "14px",
                         fontWeight: "600",
                         fontFamily: "'SF Pro Text', -apple-system, sans-serif",
                         cursor: "pointer",
@@ -178,11 +178,11 @@ export default function Leaderboard() {
                 borderRadius: "16px", overflow: "hidden",
             }}>
                 {loading ? (
-                    <div style={{ padding: "48px", textAlign: "center", color: "rgba(255,255,255,0.3)", fontFamily: "'SF Pro Text', -apple-system, sans-serif", fontSize: "13px" }}>
+                    <div style={{ padding: "48px", textAlign: "center", color: "rgba(255,255,255,0.3)", fontFamily: "'SF Pro Text', -apple-system, sans-serif", fontSize: "16px" }}>
                         Loading...
                     </div>
                 ) : entries.length === 0 ? (
-                    <div style={{ padding: "48px", textAlign: "center", color: "rgba(255,255,255,0.3)", fontFamily: "'SF Pro Text', -apple-system, sans-serif", fontSize: "13px" }}>
+                    <div style={{ padding: "48px", textAlign: "center", color: "rgba(255,255,255,0.3)", fontFamily: "'SF Pro Text', -apple-system, sans-serif", fontSize: "16px" }}>
                         {debouncedSearch ? `No results for "${debouncedSearch}"` : "No games played yet. Be the first!"}
                     </div>
                 ) : (
@@ -212,13 +212,13 @@ export default function Leaderboard() {
                                             background: "rgba(56,189,248,0.15)",
                                             border: "1px solid rgba(56,189,248,0.2)",
                                             borderRadius: "6px", padding: "2px 10px",
-                                            color: "#38bdf8", fontSize: "12px", fontWeight: "700",
+                                            color: "#38bdf8", fontSize: "14px", fontWeight: "700",
                                         }}>
                                             Lvl {entry.max_level}
                                         </span>
                                     </TD>
                                     <TD style={{ color: "rgba(255,255,255,0.6)" }}>{formatTime(entry.total_time_s)}</TD>
-                                    <TD style={{ color: "rgba(255,255,255,0.3)", fontSize: "12px" }}>{entry.created_at}</TD>
+                                    <TD style={{ color: "rgba(255,255,255,0.3)", fontSize: "14px" }}>{entry.created_at}</TD>
                                 </tr>
                             ))}
                         </tbody>
@@ -235,7 +235,7 @@ export default function Leaderboard() {
                         border: "1px solid rgba(255,255,255,0.1)",
                         color: page === 1 ? "rgba(255,255,255,0.2)" : "#fff",
                         cursor: page === 1 ? "default" : "pointer",
-                        fontSize: "13px", fontFamily: "'SF Pro Text', -apple-system, sans-serif",
+                        fontSize: "16px", fontFamily: "'SF Pro Text', -apple-system, sans-serif",
                     }}>← Prev</button>
 
                     {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
@@ -246,7 +246,7 @@ export default function Leaderboard() {
                                 background: p === page ? "#007aff" : "rgba(255,255,255,0.05)",
                                 border: p === page ? "none" : "1px solid rgba(255,255,255,0.1)",
                                 color: "#fff", cursor: "pointer",
-                                fontSize: "13px", fontWeight: p === page ? "700" : "400",
+                                fontSize: "16px", fontWeight: p === page ? "700" : "400",
                                 fontFamily: "'SF Pro Text', -apple-system, sans-serif",
                             }}>{p}</button>
                         )
@@ -258,7 +258,7 @@ export default function Leaderboard() {
                         border: "1px solid rgba(255,255,255,0.1)",
                         color: page === totalPages ? "rgba(255,255,255,0.2)" : "#fff",
                         cursor: page === totalPages ? "default" : "pointer",
-                        fontSize: "13px", fontFamily: "'SF Pro Text', -apple-system, sans-serif",
+                        fontSize: "16px", fontFamily: "'SF Pro Text', -apple-system, sans-serif",
                     }}>Next →</button>
                 </div>
             )}

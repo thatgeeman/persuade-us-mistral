@@ -9,14 +9,14 @@ const INPUT_STYLE = {
     borderRadius: "10px",
     padding: "9px 12px",
     color: "#fff",
-    fontSize: "13px",
+    fontSize: "16px",
     fontFamily: "'SF Pro Text', -apple-system, sans-serif",
     outline: "none",
     boxSizing: "border-box",
 }
 
 const LABEL_STYLE = {
-    fontSize: "10px",
+    fontSize: "12px",
     fontWeight: "700",
     letterSpacing: "0.1em",
     color: "rgba(255,255,255,0.4)",
@@ -102,7 +102,7 @@ export default function PlayerSetup({ onConfirm, classic, gameCode }) {
 
     return (
         <div style={{
-            width: "236px",
+            width: "284px",
             background: bg,
             border: "1px solid rgba(255,255,255,0.08)",
             borderRadius: "20px",
@@ -114,10 +114,10 @@ export default function PlayerSetup({ onConfirm, classic, gameCode }) {
             alignSelf: "center",
         }}>
             <div>
-                <div style={{ fontSize: "15px", fontWeight: "700", color: "#fff", fontFamily: "'SF Pro Text', -apple-system, sans-serif", marginBottom: "4px" }}>
+                <div style={{ fontSize: "18px", fontWeight: "700", color: "#fff", fontFamily: "'SF Pro Text', -apple-system, sans-serif", marginBottom: "4px" }}>
                     Who's playing?
                 </div>
-                <div style={{ fontSize: "12px", color: "rgba(255,255,255,0.4)", fontFamily: "'SF Pro Text', -apple-system, sans-serif" }}>
+                <div style={{ fontSize: "14px", color: "rgba(255,255,255,0.4)", fontFamily: "'SF Pro Text', -apple-system, sans-serif" }}>
                     Set up before starting
                 </div>
             </div>
@@ -131,7 +131,7 @@ export default function PlayerSetup({ onConfirm, classic, gameCode }) {
                 gap: "4px",
             }}>
                 <div style={{
-                    fontSize: "10px",
+                    fontSize: "12px",
                     fontWeight: "700",
                     letterSpacing: "0.08em",
                     textTransform: "uppercase",
@@ -141,15 +141,15 @@ export default function PlayerSetup({ onConfirm, classic, gameCode }) {
                 }}>
                     Quick guide
                 </div>
-                <div style={{ fontSize: "11px", color: "rgba(255,255,255,0.72)", fontFamily: "'SF Pro Text', -apple-system, sans-serif" }}>1. Pick Human or YOLO.</div>
-                <div style={{ fontSize: "11px", color: "rgba(255,255,255,0.72)", fontFamily: "'SF Pro Text', -apple-system, sans-serif" }}>2. Read the mission: what you must convince them to do.</div>
-                <div style={{ fontSize: "11px", color: "rgba(255,255,255,0.72)", fontFamily: "'SF Pro Text', -apple-system, sans-serif" }}>3. Get every member to agree before the timer ends.</div>
+                <div style={{ fontSize: "13px", color: "rgba(255,255,255,0.72)", fontFamily: "'SF Pro Text', -apple-system, sans-serif" }}>1. Pick 🏂 Human or 🦀 YOLO.</div>
+                <div style={{ fontSize: "13px", color: "rgba(255,255,255,0.72)", fontFamily: "'SF Pro Text', -apple-system, sans-serif" }}>2. Read the mission: persuade everyone to agree.</div>
+                <div style={{ fontSize: "13px", color: "rgba(255,255,255,0.72)", fontFamily: "'SF Pro Text', -apple-system, sans-serif" }}>3. Convince every member before the timer ends.</div>
             </div>
 
             {gameCode && (
                 <div style={{
                     textAlign: "center", marginTop: "12px",
-                    fontSize: "11px", color: "rgba(255,255,255,0.3)",
+                    fontSize: "13px", color: "rgba(255,255,255,0.3)",
                     fontFamily: "monospace", letterSpacing: "0.1em",
                 }}>
                     {confirmedName} (Game #{gameCode})
@@ -168,7 +168,7 @@ export default function PlayerSetup({ onConfirm, classic, gameCode }) {
                             border: playerType === type ? "1px solid rgba(255,255,255,0.3)" : "1px solid rgba(255,255,255,0.08)",
                             background: playerType === type ? "rgba(255,255,255,0.12)" : "transparent",
                             color: playerType === type ? (confirmedName ? "rgba(255,255,255,0.4)" : "#fff") : "rgba(255,255,255,0.4)",
-                            fontSize: "12px",
+                            fontSize: "14px",
                             fontWeight: "600",
                             fontFamily: "'SF Pro Text', -apple-system, sans-serif",
                             cursor: confirmedName ? "default" : "pointer",
@@ -212,7 +212,7 @@ export default function PlayerSetup({ onConfirm, classic, gameCode }) {
                             style={{ marginTop: "2px", flexShrink: 0, accentColor: "#007aff" }}
                         />
                         <span style={{
-                            fontSize: "10px", color: "rgba(255,255,255,0.4)",
+                            fontSize: "12px", color: "rgba(255,255,255,0.4)",
                             fontFamily: "'SF Pro Text', -apple-system, sans-serif",
                             lineHeight: "1.5",
                         }}>
@@ -257,7 +257,7 @@ export default function PlayerSetup({ onConfirm, classic, gameCode }) {
                                         : INPUT_STYLE.border,
                                 }}
                             />
-                            <div style={{ fontSize: "10px", color: "rgba(255,255,255,0.4)", fontFamily: "'SF Pro Text', -apple-system, sans-serif" }}>
+                            <div style={{ fontSize: "12px", color: "rgba(255,255,255,0.4)", fontFamily: "'SF Pro Text', -apple-system, sans-serif" }}>
                                 Find conversational model IDs on <a href="https://huggingface.co/models?pipeline_tag=text-generation&inference_provider=groq,novita,cerebras,sambanova,nscale,fal-ai,hyperbolic,together,fireworks-ai,featherless-ai,zai-org,replicate,cohere,scaleway,publicai,ovhcloud,hf-inference,wavespeed&other=conversational&sort=trending" target="_blank" rel="noopener noreferrer" style={{ color: "#38bdf8", textDecoration: "underline" }}>HF Hub</a>.
                             </div>
                             <input
@@ -269,26 +269,26 @@ export default function PlayerSetup({ onConfirm, classic, gameCode }) {
                                 style={{ ...INPUT_STYLE, opacity: confirmedName ? 0.4 : 1 }}
                             />
                             {customModelError && (
-                                <div style={{ fontSize: "10px", color: "rgba(248,113,113,0.95)", fontFamily: "'SF Pro Text', -apple-system, sans-serif" }}>
+                                <div style={{ fontSize: "12px", color: "rgba(248,113,113,0.95)", fontFamily: "'SF Pro Text', -apple-system, sans-serif" }}>
                                     {customModelError}
                                 </div>
                             )}
                             {customToken.trim().length === 0 && (
-                                <div style={{ fontSize: "10px", color: "rgba(248,113,113,0.95)", fontFamily: "'SF Pro Text', -apple-system, sans-serif" }}>
+                                <div style={{ fontSize: "12px", color: "rgba(248,113,113,0.95)", fontFamily: "'SF Pro Text', -apple-system, sans-serif" }}>
                                     API token is required for using other models.
                                 </div>
                             )}
                             {!customModelValid && customModel.trim().length > 0 && (
-                                <div style={{ fontSize: "10px", color: "rgba(248,113,113,0.95)", fontFamily: "'SF Pro Text', -apple-system, sans-serif" }}>
+                                <div style={{ fontSize: "12px", color: "rgba(248,113,113,0.95)", fontFamily: "'SF Pro Text', -apple-system, sans-serif" }}>
                                     Use model id format: <code style={{ fontFamily: "monospace" }}>repo/model</code>
                                 </div>
                             )}
                         </div>
                     )}
-                    <div style={{ fontSize: "10px", color: "rgba(255,255,255,0.3)", marginTop: "6px", fontFamily: "'SF Pro Text', -apple-system, sans-serif" }}>
+                    <div style={{ fontSize: "12px", color: "rgba(255,255,255,0.3)", marginTop: "6px", fontFamily: "'SF Pro Text', -apple-system, sans-serif" }}>
                         The AI will play on your behalf
                     </div>
-                    <div style={{ fontSize: "10px", color: "rgba(255,255,255,0.58)", marginTop: "6px", lineHeight: "1.45", fontFamily: "'SF Pro Text', -apple-system, sans-serif" }}>
+                    <div style={{ fontSize: "12px", color: "rgba(255,255,255,0.58)", marginTop: "6px", lineHeight: "1.45", fontFamily: "'SF Pro Text', -apple-system, sans-serif" }}>
                         🤗 YOLO-mode uses models from Hugging Face and runs inference through their Inference Providers.
                     </div>
                 </div>
@@ -307,7 +307,7 @@ export default function PlayerSetup({ onConfirm, classic, gameCode }) {
                         ? "linear-gradient(135deg, #007aff, #0055cc)"
                         : "rgba(255,255,255,0.06)",
                     color: canConfirm && !confirmedName && !checkingCustomModel ? "#fff" : "rgba(255,255,255,0.2)",
-                    fontSize: "13px",
+                    fontSize: "16px",
                     fontWeight: "700",
                     fontFamily: "'SF Pro Text', -apple-system, sans-serif",
                     cursor: canConfirm && !confirmedName && !checkingCustomModel ? "pointer" : "default",

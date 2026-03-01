@@ -7,7 +7,7 @@ export default function HowToPlay() {
     }
 
     const listItemStyle = {
-        fontSize: "13px",
+        fontSize: "16px",
         color: "rgba(255,255,255,0.86)",
         fontFamily: "'SF Pro Text', -apple-system, sans-serif",
         lineHeight: "1.5",
@@ -17,7 +17,7 @@ export default function HowToPlay() {
         <div style={{ width: "100%", maxWidth: "960px", margin: "0 auto", padding: "40px 24px" }}>
             <div style={{ marginBottom: "22px" }}>
                 <div style={{
-                    fontSize: "24px",
+                    fontSize: "29px",
                     fontWeight: "700",
                     color: "#fff",
                     fontFamily: "'SF Pro Text', -apple-system, sans-serif",
@@ -26,7 +26,7 @@ export default function HowToPlay() {
                     How To Play
                 </div>
                 <div style={{
-                    fontSize: "14px",
+                    fontSize: "17px",
                     color: "rgba(255,255,255,0.62)",
                     fontFamily: "'SF Pro Text', -apple-system, sans-serif",
                     maxWidth: "760px",
@@ -39,7 +39,7 @@ export default function HowToPlay() {
 
             <div style={{ ...panelStyle, marginBottom: "14px" }}>
                 <div style={{
-                    fontSize: "11px",
+                    fontSize: "13px",
                     letterSpacing: "0.1em",
                     textTransform: "uppercase",
                     color: "rgba(255,255,255,0.45)",
@@ -54,8 +54,8 @@ export default function HowToPlay() {
                     <div style={listItemStyle}>2. Read the level goal and each person’s relationship context.</div>
                     <div style={listItemStyle}>3. Send one persuasive message at a time.
                         <div style={{ marginTop: "5px", display: "grid", gap: "4px" }}>
-                            <div style={{ ...listItemStyle, fontSize: "12px", color: "rgba(255,255,255,0.6)", paddingLeft: "16px" }}>🏂 Human mode: craft each message to persuade your group.</div>
-                            <div style={{ ...listItemStyle, fontSize: "12px", color: "rgba(255,255,255,0.6)", paddingLeft: "16px" }}>🦀 YOLO mode: responses are constrained to 70–100 characters for fair pacing.</div>
+                            <div style={{ ...listItemStyle, fontSize: "14px", color: "rgba(255,255,255,0.6)", paddingLeft: "16px" }}>🏂 Human mode: craft each message to persuade your group.</div>
+                            <div style={{ ...listItemStyle, fontSize: "14px", color: "rgba(255,255,255,0.6)", paddingLeft: "16px" }}>🦀 YOLO mode: responses are constrained to 70–100 characters for fair pacing.</div>
                         </div>
                     </div>
                     <div style={listItemStyle}>4. Watch replies and adjust your next message. Characters respond based on their personality and how well your argument lands.</div>
@@ -65,7 +65,7 @@ export default function HowToPlay() {
 
             <div style={{ ...panelStyle, marginBottom: "14px" }}>
                 <div style={{
-                    fontSize: "11px",
+                    fontSize: "13px",
                     letterSpacing: "0.1em",
                     textTransform: "uppercase",
                     color: "rgba(255,255,255,0.45)",
@@ -86,7 +86,7 @@ export default function HowToPlay() {
 
             <div style={panelStyle}>
                 <div style={{
-                    fontSize: "11px",
+                    fontSize: "13px",
                     letterSpacing: "0.1em",
                     textTransform: "uppercase",
                     color: "rgba(255,255,255,0.45)",
@@ -108,7 +108,7 @@ export default function HowToPlay() {
                 <summary style={{
                     cursor: "pointer",
                     listStyle: "none",
-                    fontSize: "13px",
+                    fontSize: "16px",
                     fontWeight: "700",
                     color: "#fff",
                     fontFamily: "'SF Pro Text', -apple-system, sans-serif",
@@ -119,7 +119,7 @@ export default function HowToPlay() {
                     marginTop: "12px",
                     display: "grid",
                     gap: "8px",
-                    fontSize: "12px",
+                    fontSize: "14px",
                     color: "rgba(255,255,255,0.78)",
                     fontFamily: "'SF Pro Text', -apple-system, sans-serif",
                     lineHeight: "1.5",

@@ -58,7 +58,7 @@ export default function App() {
     border: "none",
     background: tab === t ? "rgba(255,255,255,0.1)" : "transparent",
     color: tab === t ? "#fff" : "rgba(255,255,255,0.4)",
-    fontSize: "13px",
+    fontSize: "16px",
     fontWeight: "600",
     fontFamily: "'SF Pro Text', -apple-system, sans-serif",
     cursor: "pointer",
@@ -95,8 +95,8 @@ export default function App() {
           fontFamily: "'SF Pro Text', -apple-system, sans-serif",
           letterSpacing: "0.02em",
         }}>
-          <span style={{ fontSize: "30px", lineHeight: 1 }}>🤝</span>
-          <span style={{ fontSize: "20px", lineHeight: 1 }}>PersuadeUs</span>
+          <span style={{ fontSize: "36px", lineHeight: 1 }}>🤝</span>
+          <span style={{ fontSize: "24px", lineHeight: 1 }}>PersuadeUs</span>
         </div>
 
         <div style={{ display: "flex", gap: "4px", background: "rgba(255,255,255,0.05)", borderRadius: "12px", padding: "4px" }}>
@@ -108,7 +108,7 @@ export default function App() {
         {/* Classic toggle */}
         <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
           <span style={{
-            fontSize: "11px", fontWeight: "600", letterSpacing: "0.06em",
+            fontSize: "13px", fontWeight: "600", letterSpacing: "0.06em",
             fontFamily: "'SF Pro Text', -apple-system, sans-serif",
             color: !classic ? "#fff" : "rgba(255,255,255,0.35)",
             transition: "color 0.3s ease",
@@ -128,7 +128,7 @@ export default function App() {
             }} />
           </div>
           <span style={{
-            fontSize: "11px", fontWeight: "600", letterSpacing: "0.06em",
+            fontSize: "13px", fontWeight: "600", letterSpacing: "0.06em",
             fontFamily: "'SF Pro Text', -apple-system, sans-serif",
             color: classic ? "#fff" : "rgba(255,255,255,0.35)",
             transition: "color 0.3s ease",
@@ -147,7 +147,7 @@ export default function App() {
         flexWrap: "wrap",
       }}>
           <div style={{
-            width: "260px",
+            width: "310px",
             background: classic ? "rgba(42,93,159,0.35)" : "rgba(15,23,41,0.55)",
             border: "1px solid rgba(255,255,255,0.08)",
             borderRadius: "20px",
@@ -160,7 +160,7 @@ export default function App() {
           }}>
             <div>
               <div style={{
-                fontSize: "12px",
+                fontSize: "17px",
                 fontWeight: "700",
                 letterSpacing: "0.08em",
                 color: "rgba(255,255,255,0.45)",
@@ -171,7 +171,7 @@ export default function App() {
                 Group members
               </div>
               <div style={{
-                fontSize: "13px",
+                fontSize: "16px",
                 color: "rgba(255,255,255,0.7)",
                 fontFamily: "'SF Pro Text', -apple-system, sans-serif",
               }}>
@@ -181,7 +181,7 @@ export default function App() {
 
             {!currentLevel?.characters?.length && (
               <div style={{
-                fontSize: "12px",
+                fontSize: "17px",
                 color: "rgba(255,255,255,0.4)",
                 fontFamily: "'SF Pro Text', -apple-system, sans-serif",
               }}>
@@ -197,7 +197,7 @@ export default function App() {
                 background: "rgba(255,255,255,0.03)",
               }}>
                 <div style={{
-                  fontSize: "14px",
+                  fontSize: "17px",
                   fontWeight: "700",
                   color: "#fff",
                   fontFamily: "'SF Pro Text', -apple-system, sans-serif",
@@ -206,7 +206,7 @@ export default function App() {
                   {character.name}
                 </div>
                 <div style={{
-                  fontSize: "12px",
+                  fontSize: "17px",
                   color: "rgba(255,255,255,0.65)",
                   fontFamily: "'SF Pro Text', -apple-system, sans-serif",
                   lineHeight: "1.45",
@@ -226,15 +226,15 @@ export default function App() {
             onLevelLoaded={setCurrentLevel}
           />
 
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "10px" }}>
-            <div style={{ visibility: player ? "hidden" : "visible", display: "flex", flexDirection: "column", alignItems: "center", gap: "4px" }}>
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "10px", alignSelf: "center" }}>
+            <div style={{ display: player ? "none" : "flex", flexDirection: "column", alignItems: "center", gap: "4px" }}>
               <span style={{
-                fontSize: "11px", fontWeight: "700", letterSpacing: "0.08em",
+                fontSize: "13px", fontWeight: "700", letterSpacing: "0.08em",
                 color: "rgba(255,255,255,0.45)",
                 fontFamily: "'SF Pro Text', -apple-system, sans-serif",
                 textTransform: "uppercase",
               }}>Start here</span>
-              <span style={{ fontSize: "18px", color: "rgba(255,255,255,0.35)", lineHeight: 1 }}>↓</span>
+              <span style={{ fontSize: "22px", color: "rgba(255,255,255,0.35)", lineHeight: 1 }}>↓</span>
             </div>
             <PlayerSetup
               onConfirm={handlePlayerConfirm}
@@ -258,7 +258,7 @@ export default function App() {
         alignItems: "center",
         gap: "5px",
       }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "10px", fontSize: "11px", color: "rgba(255,255,255,0.35)" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "10px", fontSize: "13px", color: "rgba(255,255,255,0.35)" }}>
           <span>Powered by</span>
           <a
             href="https://mistral.ai"
@@ -267,7 +267,7 @@ export default function App() {
             style={{
               display: "inline-flex", alignItems: "center", gap: "4px",
               color: "rgba(255,165,70,0.8)", textDecoration: "none", fontWeight: "600",
-              fontSize: "11px", letterSpacing: "0.02em",
+              fontSize: "13px", letterSpacing: "0.02em",
             }}
           >
             <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -283,13 +283,13 @@ export default function App() {
             rel="noreferrer"
             style={{
               color: "rgba(255,198,80,0.7)", textDecoration: "none", fontWeight: "600",
-              fontSize: "11px", letterSpacing: "0.02em",
+              fontSize: "13px", letterSpacing: "0.02em",
             }}
           >
             🤗 Hugging Face
           </a>
         </div>
-        <div style={{ fontSize: "10px", color: "rgba(255,255,255,0.22)", letterSpacing: "0.02em" }}>
+        <div style={{ fontSize: "12px", color: "rgba(255,255,255,0.22)", letterSpacing: "0.02em" }}>
           Copyright © 2026 PersuadeUs. All rights reserved.
         </div>
       </div>
