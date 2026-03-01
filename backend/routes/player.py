@@ -4,6 +4,7 @@ from fastapi import APIRouter
 from huggingface_hub import InferenceClient
 from huggingface_hub.errors import HfHubHTTPError
 from pydantic import BaseModel
+from typing import Optional
 
 router = APIRouter()
 MIN_MESSAGE_CHARS = 70
@@ -27,6 +28,7 @@ class LLMPlayerRequest(BaseModel):
     model: str
     goal: str
     conversation: list[dict]  # {role, character, content}
+    api_token: Optional[str] = None
 
 
 class LLMPlayerResponse(BaseModel):
@@ -70,9 +72,15 @@ def get_llm_models():
 
 @router.post("/player/llm-message", response_model=LLMPlayerResponse)
 async def llm_player_message(req: LLMPlayerRequest) -> LLMPlayerResponse:
+    if req.api_token is not None:
+        # If client explicitly provides a token field, use only that value.
+        # Do not fall back to server HF_TOKEN in this case.
+        token = req.api_token.strip() or None
+    else:
+        token = os.environ.get("HF_TOKEN")
     client = InferenceClient(
         model=req.model,
-        token=os.environ.get("HF_TOKEN"),
+        token=token,
     )
 
     history = "\n".join(

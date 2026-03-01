@@ -36,11 +36,16 @@ def is_valid_hex_color(value: str) -> bool:
         return False
 
 
-def clamp_resistance(value) -> float:
+def clamp_resistance(value, level_number: int) -> float:
     try:
         numeric = float(value)
     except (TypeError, ValueError):
-        numeric = random.uniform(0.3, 0.8)
+        if level_number <= 5:
+            numeric = random.uniform(0.25, 0.69)
+        else:
+            numeric = random.uniform(0.35, 0.95)
+    if level_number <= 5:
+        return max(0.0, min(0.69, numeric))
     return max(0.0, min(1.0, numeric))
 
 
@@ -112,6 +117,8 @@ async def generate_characters(
                     "avatar_color_from (hex string), avatar_color_to (hex string). "
                     "Make characters feel like real distinct people. "
                     "Resistance level should vary — not everyone should be equally stubborn. "
+                    "For levels 1-5, keep every resistance_level strictly below 0.7. "
+                    "Only use high resistance (0.7+) from level 6 onward. "
                     "Give each character a unique voice and motivation."
                 ),
             },
@@ -153,7 +160,7 @@ async def generate_characters(
         name = str(c.get("name") or "").strip() or f"Friend {i + 1}"
         personality = str(c.get("personality") or "").strip() or "Practical and cautious about new plans."
         relationship_blurb = str(c.get("relationship_blurb") or "").strip() or "You know each other through the same local social circle."
-        resistance_level = clamp_resistance(c.get("resistance_level"))
+        resistance_level = clamp_resistance(c.get("resistance_level"), effective_level)
         avatar_color_from = c.get("avatar_color_from")
         avatar_color_to = c.get("avatar_color_to")
         if not is_valid_hex_color(avatar_color_from) or not is_valid_hex_color(avatar_color_to):
@@ -175,7 +182,7 @@ async def generate_characters(
             name=f"Friend {i + 1}",
             personality="Friendly but unsure whether this plan fits their schedule.",
             relationship_blurb="You know each other through the same local social circle.",
-            resistance_level=clamp_resistance(None),
+            resistance_level=clamp_resistance(None, effective_level),
             avatar_color_from=color_from,
             avatar_color_to=color_to,
         ))

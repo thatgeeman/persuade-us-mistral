@@ -550,6 +550,7 @@ const ChatGame = forwardRef(function ChatGame({ classic, player, onLevelComplete
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     model: player.llmModel,
+                    api_token: player.llmApiToken || null,
                     goal: level.goal_description,
                     conversation: conversationRef.current.map(m => ({
                         role: m.role,

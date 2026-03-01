@@ -31,6 +31,8 @@ export default function PlayerSetup({ onConfirm, classic, gameCode }) {
     const [playerName, setPlayerName] = useState("")
     const [selectedModel, setSelectedModel] = useState("")
     const [availableModels, setAvailableModels] = useState([])
+    const [customModel, setCustomModel] = useState("")
+    const [customToken, setCustomToken] = useState("")
     const [confirmedName, setConfirmedName] = useState(null)
     const [ageVerified, setAgeVerified] = useState(false)
 
@@ -39,19 +41,31 @@ export default function PlayerSetup({ onConfirm, classic, gameCode }) {
             .then(r => r.json())
             .then(d => {
                 setAvailableModels(d.models)
-                setSelectedModel(d.models[0])
+                setSelectedModel(d.models?.[0] || "")
             })
             .catch(() => { })
     }, [])
 
+    const customModelValid = /^[^/\s]+\/[^/\s]+$/.test(customModel.trim())
+    const effectiveModel = selectedModel === "__other__" ? customModel.trim() : selectedModel
+
     const canConfirm = playerType === "llm"
-        ? !!selectedModel
+        ? !!effectiveModel && (
+            selectedModel !== "__other__"
+            || (customModelValid && customToken.trim().length > 0)
+        )
         : playerName.trim().length >= 2 && ageVerified
 
     function handleConfirm() {
         if (!canConfirm || confirmedName) return
-        const name = playerType === "human" ? playerName.trim() : selectedModel.split("/").pop()
-        onConfirm({ playerType, playerName: name, llmModel: playerType === "llm" ? selectedModel : null })
+        const llmModel = playerType === "llm" ? effectiveModel : null
+        const name = playerType === "human" ? playerName.trim() : (llmModel?.split("/").pop() || "YOLO")
+        onConfirm({
+            playerType,
+            playerName: name,
+            llmModel,
+            llmApiToken: playerType === "llm" ? customToken.trim() || null : null,
+        })
         setConfirmedName(name)
     }
 
@@ -61,7 +75,7 @@ export default function PlayerSetup({ onConfirm, classic, gameCode }) {
 
     return (
         <div style={{
-            width: "220px",
+            width: "236px",
             background: bg,
             border: "1px solid rgba(255,255,255,0.08)",
             borderRadius: "20px",
@@ -196,9 +210,51 @@ export default function PlayerSetup({ onConfirm, classic, gameCode }) {
                                 {m.split("/").pop()}
                             </option>
                         ))}
+                        <option value="__other__" style={{ background: "#1a1a2e", color: "#fff" }}>
+                            Other (🤗HuggingFace)
+                        </option>
                     </select>
+                    {selectedModel === "__other__" && (
+                        <div style={{ marginTop: "8px", display: "flex", flexDirection: "column", gap: "8px" }}>
+                            <input
+                                type="text"
+                                placeholder="Model ID (e.g. Qwen/Qwen3.5-35B-A3B)"
+                                value={customModel}
+                                onChange={e => setCustomModel(e.target.value)}
+                                disabled={!!confirmedName}
+                                style={{
+                                    ...INPUT_STYLE,
+                                    opacity: confirmedName ? 0.4 : 1,
+                                    border: customModel && !customModelValid
+                                        ? "1px solid rgba(248,113,113,0.9)"
+                                        : INPUT_STYLE.border,
+                                }}
+                            />
+                            <input
+                                type="password"
+                                placeholder="Hugging Face API Token"
+                                value={customToken}
+                                onChange={e => setCustomToken(e.target.value)}
+                                disabled={!!confirmedName}
+                                style={{ ...INPUT_STYLE, opacity: confirmedName ? 0.4 : 1 }}
+                            />
+                            {customToken.trim().length === 0 && (
+                                <div style={{ fontSize: "10px", color: "rgba(248,113,113,0.95)", fontFamily: "'SF Pro Text', -apple-system, sans-serif" }}>
+                                    API token is required for using other models.
+                                </div>
+                            )}
+                            {!customModelValid && customModel.trim().length > 0 && (
+                                <div style={{ fontSize: "10px", color: "rgba(248,113,113,0.95)", fontFamily: "'SF Pro Text', -apple-system, sans-serif" }}>
+                                    Use model id format: <code style={{ fontFamily: "monospace" }}>repo/model</code>
+                                </div>
+                            )}
+                        </div>
+                    )}
                     <div style={{ fontSize: "10px", color: "rgba(255,255,255,0.3)", marginTop: "6px", fontFamily: "'SF Pro Text', -apple-system, sans-serif" }}>
                         The AI will play on your behalf
+                    </div>
+                    <div style={{ fontSize: "10px", color: "rgba(255,255,255,0.58)", marginTop: "6px", lineHeight: "1.45", fontFamily: "'SF Pro Text', -apple-system, sans-serif" }}>
+                        🤗 YOLO-mode uses models from Hugging Face and runs inference through their Inference Providers.
                     </div>
                 </div>
             )}
