@@ -1,17 +1,19 @@
 # 🤝PersuadeUs
 
-PersuadeUs is a social-persuasion chat game powered by Mistral AI and Hugging Face.
-You are placed in a group chat scenario and must convince each member to agree with a mission before the timer expires.
+PersuadeUs is an AI-powered social persuasion game built with Mistral AI and Hugging Face.
+You’re dropped into a group chat with a mission: convince everyone to say yes before the clock runs out. Each character is generated fresh by an LLM, with a distinct personality, resistance level, and reasons to push back. The better your argument, the faster they fold.
 
 ## What Is It?
 
-- AI-powered group chat simulation, but with a twist: you’re not just chatting, you’re persuading.
-- Persuade coworkers to adopt your project, or rally friends for a weekend trip: all in a fun, low-stakes game environment.
-- Human mode (you type) and YOLO mode (LLM plays) 
-- Progressive levels with changing social context
-- Character relationship blurbs and personality-driven responses
-- Leaderboard tracking your best runs and times
-- GIF export of your winning persuasion thread
+- 🏂 Human mode: you type, you persuade
+- 🦀 YOLO mode: an LLM plays on your behalf (watch models compete)
+- Progressive levels that escalate social complexity
+- Fully dynamic characters and scenarios, no two games alike
+- Classic iOS 6 and modern iOS 17 skins
+- Leaderboard with per-session game codes
+- GIF export of your winning thread
+
+Rally friends for a road trip. Convince coworkers to adopt your idea. Ask your crush to hang out. Low stakes, high social intelligence required.
 
 ## How To Play
 
@@ -19,11 +21,11 @@ You are placed in a group chat scenario and must convince each member to agree w
 
 ### Core Loop
 
-1. Choose mode: Human (you type) or YOLO (model plays and you watch, taking notes).
+1. Choose mode: 🏂 Human (you type) or 🦀 YOLO (model types, you watch).
 2. Read the level goal and each person’s relationship context.
 3. Send one persuasive message at a time.
-   - Human mode: You craft messages to persuade your group chat characters with 140-character limit per message.
-   - YOLO responses are constrained to short text output (70-100 characters) for fair pacing.
+   - 🏂 Human mode: craft messages to persuade your group chat characters.
+   - 🦀 YOLO mode: responses are constrained to 70-100 characters for fair pacing.
 4. Watch replies and adjust your next message.
    - Characters respond with their own messages, and you adjust your strategy based on their reactions.
 5. Win by convincing everyone before the timer expires.
@@ -95,7 +97,7 @@ Environment variable needed:
 MISTRAL_API_KEY=...
 ```
 
-Optional for YOLO model inference:
+Optional for 🦀 YOLO model inference:
 
 ```bash
 HF_TOKEN=...
@@ -103,8 +105,8 @@ HF_TOKEN=...
 
 Notes:
 
-- `HF_TOKEN` is used for built-in YOLO model choices.
-- For `Other` YOLO models, the user-provided token is used for that session's inference calls.
+- `HF_TOKEN` is used for built-in 🦀 YOLO model choices.
+- For `Other` 🦀 YOLO models, the user-provided token is used for that session's inference calls.
 
 ## Frontend
 
@@ -130,9 +132,9 @@ Backend API URL used in app:
 
 - http://localhost:8000
 
-### YOLO Custom Models (Other)
+### 🦀 YOLO Custom Models (Other)
 
-When `Other (🤗HuggingFace)` is selected in YOLO-mode setup:
+When `Other (🤗HuggingFace)` is selected in 🦀 YOLO-mode setup:
 
 - Model ID must be entered in `repo/model` format.
 - A Hugging Face API token is required.
@@ -143,6 +145,6 @@ When `Other (🤗HuggingFace)` is selected in YOLO-mode setup:
 - Licenses are respected and remain with their original owners; third-party libraries keep their own license terms.
 - This project uses GNU AGPL v3.0. Full text: https://www.gnu.org/licenses/agpl-3.0.en.html#license-text
 - AI attribution: character responses, level goals, and character generation are powered by [Mistral AI](https://mistral.ai) (`mistral-large-latest`).
-- Inference attribution: YOLO mode player messages run via [Hugging Face Inference Providers](https://huggingface.co/docs/inference-providers).
-- Throwback attribution: YOLO mode includes an OpenClaw throwback to its creator, Peter Steinberger ([gh](https://github.com/steipete)).
+- Inference attribution: 🦀 YOLO mode player messages run via [Hugging Face Inference Providers](https://huggingface.co/docs/inference-providers).
+- Throwback attribution: 🦀 YOLO mode includes an OpenClaw throwback to its creator, Peter Steinberger ([gh](https://github.com/steipete)).
 - See also: [THIRD_PARTY_NOTICES.md](./THIRD_PARTY_NOTICES.md)
