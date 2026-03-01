@@ -252,12 +252,46 @@ export default function App() {
         width: "100%",
         padding: "14px 20px 18px",
         textAlign: "center",
-        fontSize: "11px",
-        color: "rgba(255,255,255,0.45)",
         fontFamily: "'SF Pro Text', -apple-system, sans-serif",
-        letterSpacing: "0.02em",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        gap: "5px",
       }}>
-        Copyright © 2026 PersuadeUs. All rights reserved.
+        <div style={{ display: "flex", alignItems: "center", gap: "10px", fontSize: "11px", color: "rgba(255,255,255,0.35)" }}>
+          <span>Powered by</span>
+          <a
+            href="https://mistral.ai"
+            target="_blank"
+            rel="noreferrer"
+            style={{
+              display: "inline-flex", alignItems: "center", gap: "4px",
+              color: "rgba(255,165,70,0.8)", textDecoration: "none", fontWeight: "600",
+              fontSize: "11px", letterSpacing: "0.02em",
+            }}
+          >
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <rect x="0" y="0" width="8" height="8" /><rect x="8" y="0" width="8" height="8" /><rect x="16" y="0" width="8" height="8" />
+              <rect x="8" y="8" width="8" height="8" /><rect x="0" y="16" width="8" height="8" /><rect x="16" y="16" width="8" height="8" />
+            </svg>
+            Mistral AI
+          </a>
+          <span style={{ color: "rgba(255,255,255,0.15)" }}>·</span>
+          <a
+            href="https://huggingface.co"
+            target="_blank"
+            rel="noreferrer"
+            style={{
+              color: "rgba(255,198,80,0.7)", textDecoration: "none", fontWeight: "600",
+              fontSize: "11px", letterSpacing: "0.02em",
+            }}
+          >
+            🤗 Hugging Face
+          </a>
+        </div>
+        <div style={{ fontSize: "10px", color: "rgba(255,255,255,0.22)", letterSpacing: "0.02em" }}>
+          Copyright © 2026 PersuadeUs. All rights reserved.
+        </div>
       </div>
     </div>
   )

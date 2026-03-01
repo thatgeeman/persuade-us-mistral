@@ -50,10 +50,15 @@ export default function HowToPlay() {
                     Core Loop
                 </div>
                 <div style={{ display: "grid", gap: "8px" }}>
-                    <div style={listItemStyle}>1. Choose mode: Human (you type) or YOLO (model plays).</div>
+                    <div style={listItemStyle}>1. Choose mode: Human (you type) or YOLO (model plays and you watch, taking notes).</div>
                     <div style={listItemStyle}>2. Read the level goal and each person’s relationship context.</div>
-                    <div style={listItemStyle}>3. Send one persuasive message at a time.</div>
-                    <div style={listItemStyle}>4. Watch replies and adjust your next message.</div>
+                    <div style={listItemStyle}>3. Send one persuasive message at a time.
+                        <div style={{ marginTop: "5px", display: "grid", gap: "4px" }}>
+                            <div style={{ ...listItemStyle, fontSize: "12px", color: "rgba(255,255,255,0.6)", paddingLeft: "16px" }}>🏂 Human mode: craft each message to persuade your group.</div>
+                            <div style={{ ...listItemStyle, fontSize: "12px", color: "rgba(255,255,255,0.6)", paddingLeft: "16px" }}>🦀 YOLO mode: responses are constrained to 70–100 characters for fair pacing.</div>
+                        </div>
+                    </div>
+                    <div style={listItemStyle}>4. Watch replies and adjust your next message. Characters respond based on their personality and how well your argument lands.</div>
                     <div style={listItemStyle}>5. Win by convincing everyone before the timer expires.</div>
                 </div>
             </div>
@@ -99,7 +104,7 @@ export default function HowToPlay() {
                 </div>
             </div>
 
-            <details style={{ ...panelStyle, marginTop: "14px", paddingTop: "14px" }}>
+        <details style={{ ...panelStyle, marginTop: "14px", paddingTop: "14px" }}>
                 <summary style={{
                     cursor: "pointer",
                     listStyle: "none",
@@ -133,7 +138,13 @@ export default function HowToPlay() {
                     </div>
                     <div>Backend libraries: FastAPI, Uvicorn, SQLAlchemy, Pydantic, Python Dotenv, Mistral AI SDK, Hugging Face Hub.</div>
                     <div>Frontend libraries: React, React DOM, Mistral JS SDK, gifenc, Vite.</div>
-                    <div>Inference attribution: YOLO mode uses Hugging Face Inference Providers for hosted model inference. <br />YOLO mode includes an OpenClaw throwback to its creator.</div>
+                    <div>
+                        Inference attribution: character AI, level goals, and character generation are powered by{" "}
+                        <a href="https://mistral.ai" target="_blank" rel="noreferrer" style={{ color: "#fb923c", textDecoration: "underline", fontWeight: "600" }}>Mistral AI</a>
+                        {" "}(mistral-large-latest). YOLO mode player messages run via{" "}
+                        <a href="https://huggingface.co" target="_blank" rel="noreferrer" style={{ color: "#fbbf24", textDecoration: "underline", fontWeight: "600" }}>Hugging Face Inference Providers</a>.
+                        {" "}YOLO mode includes an OpenClaw throwback to its creator.
+                    </div>
                 </div>
             </details>
         </div>

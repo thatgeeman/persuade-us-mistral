@@ -1,10 +1,10 @@
 import os
+from typing import Optional
 
 from fastapi import APIRouter
 from huggingface_hub import InferenceClient
 from huggingface_hub.errors import HfHubHTTPError
 from pydantic import BaseModel
-from typing import Optional
 
 router = APIRouter()
 MIN_MESSAGE_CHARS = 70
@@ -16,9 +16,7 @@ HF_MODELS = [
     "Qwen/Qwen2.5-14B-Instruct",
     "mistralai/Mistral-7B-Instruct-v0.2",
     "meta-llama/Llama-3.2-3B-Instruct",
-    "Qwen/Qwen2.5-1.5B-Instruct",
     "meta-llama/Meta-Llama-3-8B-Instruct",
-    "meta-llama/Llama-3.2-1B-Instruct",
     "HuggingFaceH4/zephyr-7b-beta",
     "NousResearch/Hermes-3-Llama-3.1-8B",
 ]
@@ -63,9 +61,7 @@ def in_range(text: str) -> bool:
 
 def build_fallback_message(goal: str) -> str:
     safe_goal = normalize_message(goal)[:42].rstrip(" .,;:")
-    message = (
-        f"Come with me for {safe_goal} tonight. It'll be fun, easy, and we can bail early if needed."
-    )
+    message = f"Come with me for {safe_goal} tonight. It'll be fun, easy, and we can bail early if needed."
     if len(message) < MIN_MESSAGE_CHARS:
         message += " You'll like the vibe."
     message = normalize_message(message)
@@ -123,7 +119,11 @@ async def llm_player_message(req: LLMPlayerRequest) -> LLMPlayerResponse:
         "Be natural, friendly, and persuasive. No emoji overload. "
         "Reply with ONLY the message text, nothing else."
     )
-    user_prompt = f"Chat so far:\n{history}\n\nWrite your next message:" if history else "Start the conversation to convince them."
+    user_prompt = (
+        f"Chat so far:\n{history}\n\nWrite your next message:"
+        if history
+        else "Start the conversation to convince them."
+    )
 
     try:
         response = client.chat_completion(
@@ -135,9 +135,13 @@ async def llm_player_message(req: LLMPlayerRequest) -> LLMPlayerResponse:
             temperature=0.8,
         )
     except HfHubHTTPError:
-        return LLMPlayerResponse(message=build_fallback_message(req.goal), model=req.model)
+        return LLMPlayerResponse(
+            message=build_fallback_message(req.goal), model=req.model
+        )
 
-    message = strip_wrapping_quotes(normalize_message(response.choices[0].message.content))
+    message = strip_wrapping_quotes(
+        normalize_message(response.choices[0].message.content)
+    )
 
     if not in_range(message):
         rewrite_system_prompt = (
@@ -154,7 +158,9 @@ async def llm_player_message(req: LLMPlayerRequest) -> LLMPlayerResponse:
                 max_tokens=80,
                 temperature=0.4,
             )
-            message = strip_wrapping_quotes(normalize_message(rewrite.choices[0].message.content))
+            message = strip_wrapping_quotes(
+                normalize_message(rewrite.choices[0].message.content)
+            )
         except HfHubHTTPError:
             message = build_fallback_message(req.goal)
 
