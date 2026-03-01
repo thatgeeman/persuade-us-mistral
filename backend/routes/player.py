@@ -38,6 +38,14 @@ def normalize_message(text: str) -> str:
     return " ".join(text.strip().split())
 
 
+def strip_wrapping_quotes(text: str) -> str:
+    s = (text or "").strip()
+    quote_pairs = {('"', '"'), ("'", "'"), ("“", "”"), ("‘", "’")}
+    while len(s) >= 2 and (s[0], s[-1]) in quote_pairs:
+        s = s[1:-1].strip()
+    return s
+
+
 def in_range(text: str) -> bool:
     return MIN_MESSAGE_CHARS <= len(text) <= MAX_MESSAGE_CHARS
 
@@ -93,7 +101,7 @@ async def llm_player_message(req: LLMPlayerRequest) -> LLMPlayerResponse:
     except HfHubHTTPError:
         return LLMPlayerResponse(message=build_fallback_message(req.goal), model=req.model)
 
-    message = normalize_message(response.choices[0].message.content)
+    message = strip_wrapping_quotes(normalize_message(response.choices[0].message.content))
 
     if not in_range(message):
         rewrite_system_prompt = (
@@ -110,7 +118,7 @@ async def llm_player_message(req: LLMPlayerRequest) -> LLMPlayerResponse:
                 max_tokens=80,
                 temperature=0.4,
             )
-            message = normalize_message(rewrite.choices[0].message.content)
+            message = strip_wrapping_quotes(normalize_message(rewrite.choices[0].message.content))
         except HfHubHTTPError:
             message = build_fallback_message(req.goal)
 

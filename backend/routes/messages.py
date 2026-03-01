@@ -51,11 +51,67 @@ def pick_agree_person(conversation: list) -> str:
     return "you"
 
 
+def latest_user_message(conversation: list) -> str:
+    for m in reversed(conversation):
+        if m.role == "user" and m.content:
+            return m.content
+    return ""
+
+
+def is_simple_greeting(text: str) -> bool:
+    normalized = normalize_text(text).strip("!?.")
+    greetings = {
+        "hi", "hey", "hello", "yo", "sup", "hiya",
+        "good morning", "good afternoon", "good evening",
+    }
+    if normalized in greetings:
+        return True
+    compact = normalized.replace(",", " ").replace("  ", " ").strip()
+    tokens = [t for t in compact.split() if t]
+    if len(tokens) <= 3 and any(t in {"hi", "hey", "hello", "yo", "sup"} for t in tokens):
+        return True
+    return False
+
+
+def mission_mentioned_in_text(text: str, goal: str) -> bool:
+    t = normalize_text(text)
+    g = normalize_text(goal)
+    if not t or not g:
+        return False
+    goal_words = [w for w in g.split() if len(w) > 3]
+    overlap = sum(1 for w in goal_words if w in t)
+    return overlap >= 2
+
+
+def intent_mentioned_in_text(text: str) -> bool:
+    t = normalize_text(text)
+    if not t:
+        return False
+    markers = (
+        "convince",
+        "mission",
+        "goal",
+        "plan",
+        "agree to",
+        "what do you need",
+        "what are you asking",
+        "talk me into",
+    )
+    return any(marker in t for marker in markers)
+
+
 def build_character_prompt(character, goal: str, conversation: list) -> list:
     history = "\n".join(
         f"{'User' if m.role == 'user' else m.character}: {m.content}"
         for m in conversation
         if m.role != "system" and m.content
+    )
+    last_user = latest_user_message(conversation)
+    greeting_mode = is_simple_greeting(last_user)
+    mission_context = (
+        "Someone is trying to convince you to: [hidden until player brings it up]. "
+        if greeting_mode
+        else f"Someone is trying to convince you to: {goal}. "
     )
     return [
         {
@@ -63,7 +119,7 @@ def build_character_prompt(character, goal: str, conversation: list) -> list:
             "content": (
                 f"You are {character.name} in a group chat. {character.personality} "
                 f"Your relationship to the player: {character.relationship_blurb} "
-                f"Someone is trying to convince you to: {goal}. "
+                f"{mission_context}"
                 f"Your resistance level is {character.resistance_level} out of 1.0 — "
                 f"the higher it is, the harder you are to convince. "
                 f"Reply in 1-2 short casual sentences like a real text message. "
@@ -72,6 +128,14 @@ def build_character_prompt(character, goal: str, conversation: list) -> list:
                 f"Never add emojis just to decorate the message. "
                 f"Avoid repeating wording already used by other people in the chat history. "
                 f"If your message would repeat or be very similar, reply with a concise fresh phrasing. "
+                + (
+                    "The latest player message is just a greeting/small talk. "
+                    "Reply naturally to the greeting and do NOT mention the mission/goal yet. "
+                    "Do not ask what plan or favor they want yet. "
+                    if greeting_mode else
+                    "Do not reveal or mention the mission unless the user clearly brings up the plan first. "
+                )
+                +
                 f"Never break character. At the end of your reply add exactly: "
                 f"[CONVINCED:true] or [CONVINCED:false]"
             ),
@@ -84,6 +148,8 @@ async def get_character_response(
     character, goal: str, conversation: list
 ) -> CharacterResponse:
     messages = build_character_prompt(character, goal, conversation)
+    last_user = latest_user_message(conversation)
+    greeting_mode = is_simple_greeting(last_user)
     response = client.chat.complete(
         model="mistral-large-latest",
         messages=messages,
@@ -92,6 +158,11 @@ async def get_character_response(
     raw = response.choices[0].message.content
     convinced = "[CONVINCED:true]" in raw
     clean = raw.replace("[CONVINCED:true]", "").replace("[CONVINCED:false]", "").strip()
+    if greeting_mode and (
+        mission_mentioned_in_text(clean, goal) or intent_mentioned_in_text(clean)
+    ):
+        clean = "Hey! Good to hear from you."
+        convinced = False
     if is_similar_to_history(clean, conversation):
         person = pick_agree_person(conversation)
         clean = f"I agree with {person}."

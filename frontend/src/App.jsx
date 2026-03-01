@@ -87,10 +87,16 @@ export default function App() {
         position: "sticky", top: 0, zIndex: 100,
       }}>
         <div style={{
-          fontSize: "20px", fontWeight: "800", color: "#fff",
-          fontFamily: "'SF Pro Text', -apple-system, sans-serif", letterSpacing: "0.02em",
+          display: "flex",
+          alignItems: "center",
+          gap: "8px",
+          fontWeight: "800",
+          color: "#fff",
+          fontFamily: "'SF Pro Text', -apple-system, sans-serif",
+          letterSpacing: "0.02em",
         }}>
-          🤝 PersuadeUs
+          <span style={{ fontSize: "30px", lineHeight: 1 }}>🤝</span>
+          <span style={{ fontSize: "20px", lineHeight: 1 }}>PersuadeUs</span>
         </div>
 
         <div style={{ display: "flex", gap: "4px", background: "rgba(255,255,255,0.05)", borderRadius: "12px", padding: "4px" }}>
