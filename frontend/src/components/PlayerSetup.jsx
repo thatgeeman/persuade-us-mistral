@@ -33,6 +33,8 @@ export default function PlayerSetup({ onConfirm, classic, gameCode }) {
     const [availableModels, setAvailableModels] = useState([])
     const [customModel, setCustomModel] = useState("")
     const [customToken, setCustomToken] = useState("")
+    const [checkingCustomModel, setCheckingCustomModel] = useState(false)
+    const [customModelError, setCustomModelError] = useState("")
     const [confirmedName, setConfirmedName] = useState(null)
     const [ageVerified, setAgeVerified] = useState(false)
 
@@ -56,9 +58,34 @@ export default function PlayerSetup({ onConfirm, classic, gameCode }) {
         )
         : playerName.trim().length >= 2 && ageVerified
 
-    function handleConfirm() {
+    async function handleConfirm() {
         if (!canConfirm || confirmedName) return
         const llmModel = playerType === "llm" ? effectiveModel : null
+        if (playerType === "llm" && selectedModel === "__other__") {
+            setCheckingCustomModel(true)
+            setCustomModelError("")
+            try {
+                const res = await fetch(`${API}/player/llm-model-check`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        model: llmModel,
+                        api_token: customToken.trim(),
+                    }),
+                })
+                const data = await res.json()
+                if (!res.ok || !data?.reachable) {
+                    setCustomModelError("Not reachable. Check model ID and API token.")
+                    setCheckingCustomModel(false)
+                    return
+                }
+            } catch {
+                setCustomModelError("Not reachable. Check model ID and API token.")
+                setCheckingCustomModel(false)
+                return
+            }
+            setCheckingCustomModel(false)
+        }
         const name = playerType === "human" ? playerName.trim() : (llmModel?.split("/").pop() || "YOLO")
         onConfirm({
             playerType,
@@ -220,7 +247,7 @@ export default function PlayerSetup({ onConfirm, classic, gameCode }) {
                                 type="text"
                                 placeholder="Model ID (e.g. Qwen/Qwen3.5-35B-A3B)"
                                 value={customModel}
-                                onChange={e => setCustomModel(e.target.value)}
+                                onChange={e => { setCustomModel(e.target.value); setCustomModelError("") }}
                                 disabled={!!confirmedName}
                                 style={{
                                     ...INPUT_STYLE,
@@ -230,14 +257,22 @@ export default function PlayerSetup({ onConfirm, classic, gameCode }) {
                                         : INPUT_STYLE.border,
                                 }}
                             />
+                            <div style={{ fontSize: "10px", color: "rgba(255,255,255,0.4)", fontFamily: "'SF Pro Text', -apple-system, sans-serif" }}>
+                                Find conversational model IDs on <a href="https://huggingface.co/models?pipeline_tag=text-generation&inference_provider=groq,novita,cerebras,sambanova,nscale,fal-ai,hyperbolic,together,fireworks-ai,featherless-ai,zai-org,replicate,cohere,scaleway,publicai,ovhcloud,hf-inference,wavespeed&other=conversational&sort=trending" target="_blank" rel="noopener noreferrer" style={{ color: "#38bdf8", textDecoration: "underline" }}>HF Hub</a>.
+                            </div>
                             <input
                                 type="password"
                                 placeholder="Hugging Face API Token"
                                 value={customToken}
-                                onChange={e => setCustomToken(e.target.value)}
+                                onChange={e => { setCustomToken(e.target.value); setCustomModelError("") }}
                                 disabled={!!confirmedName}
                                 style={{ ...INPUT_STYLE, opacity: confirmedName ? 0.4 : 1 }}
                             />
+                            {customModelError && (
+                                <div style={{ fontSize: "10px", color: "rgba(248,113,113,0.95)", fontFamily: "'SF Pro Text', -apple-system, sans-serif" }}>
+                                    {customModelError}
+                                </div>
+                            )}
                             {customToken.trim().length === 0 && (
                                 <div style={{ fontSize: "10px", color: "rgba(248,113,113,0.95)", fontFamily: "'SF Pro Text', -apple-system, sans-serif" }}>
                                     API token is required for using other models.
@@ -262,25 +297,25 @@ export default function PlayerSetup({ onConfirm, classic, gameCode }) {
             {/* Confirm button */}
             <button
                 onClick={handleConfirm}
-                disabled={!canConfirm || !!confirmedName}
+                disabled={!canConfirm || !!confirmedName || checkingCustomModel}
                 style={{
                     width: "100%",
                     padding: "11px",
                     borderRadius: "12px",
                     border: "none",
-                    background: canConfirm && !confirmedName
+                    background: canConfirm && !confirmedName && !checkingCustomModel
                         ? "linear-gradient(135deg, #007aff, #0055cc)"
                         : "rgba(255,255,255,0.06)",
-                    color: canConfirm && !confirmedName ? "#fff" : "rgba(255,255,255,0.2)",
+                    color: canConfirm && !confirmedName && !checkingCustomModel ? "#fff" : "rgba(255,255,255,0.2)",
                     fontSize: "13px",
                     fontWeight: "700",
                     fontFamily: "'SF Pro Text', -apple-system, sans-serif",
-                    cursor: canConfirm && !confirmedName ? "pointer" : "default",
+                    cursor: canConfirm && !confirmedName && !checkingCustomModel ? "pointer" : "default",
                     transition: "all 0.2s ease",
                     letterSpacing: "0.04em",
                 }}
             >
-                Start Game
+                {checkingCustomModel ? "Checking..." : "Start Game"}
             </button>
         </div>
     )

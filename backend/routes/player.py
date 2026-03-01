@@ -36,6 +36,15 @@ class LLMPlayerResponse(BaseModel):
     model: str
 
 
+class LLMModelCheckRequest(BaseModel):
+    model: str
+    api_token: Optional[str] = None
+
+
+class LLMModelCheckResponse(BaseModel):
+    reachable: bool
+
+
 def normalize_message(text: str) -> str:
     return " ".join(text.strip().split())
 
@@ -65,19 +74,38 @@ def build_fallback_message(goal: str) -> str:
     return message
 
 
+def resolve_token(api_token: Optional[str]) -> Optional[str]:
+    if api_token is not None:
+        # If client explicitly provides a token field, use only that value.
+        # Do not fall back to server HF_TOKEN in this case.
+        return api_token.strip() or None
+    return os.environ.get("HF_TOKEN")
+
+
 @router.get("/player/llm-models")
 def get_llm_models():
     return {"models": HF_MODELS}
 
 
+@router.post("/player/llm-model-check", response_model=LLMModelCheckResponse)
+async def llm_model_check(req: LLMModelCheckRequest) -> LLMModelCheckResponse:
+    client = InferenceClient(model=req.model, token=resolve_token(req.api_token))
+    try:
+        client.chat_completion(
+            messages=[{"role": "user", "content": "Hi"}],
+            max_tokens=4,
+            temperature=0.0,
+        )
+        return LLMModelCheckResponse(reachable=True)
+    except HfHubHTTPError:
+        return LLMModelCheckResponse(reachable=False)
+    except Exception:
+        return LLMModelCheckResponse(reachable=False)
+
+
 @router.post("/player/llm-message", response_model=LLMPlayerResponse)
 async def llm_player_message(req: LLMPlayerRequest) -> LLMPlayerResponse:
-    if req.api_token is not None:
-        # If client explicitly provides a token field, use only that value.
-        # Do not fall back to server HF_TOKEN in this case.
-        token = req.api_token.strip() or None
-    else:
-        token = os.environ.get("HF_TOKEN")
+    token = resolve_token(req.api_token)
     client = InferenceClient(
         model=req.model,
         token=token,
