@@ -23,9 +23,7 @@ Rally friends for a road trip. Convince coworkers to adopt your idea. Ask your c
 
 1. Choose mode: 🏂 Human (you type) or 🦀 YOLO (model types, you watch).
 2. Read the level goal and each person’s relationship context.
-3. Send one persuasive message at a time.
-   - 🏂 Human mode: craft messages to persuade your group chat characters.
-   - 🦀 YOLO mode: responses are constrained to 70-100 characters for fair pacing.
+3. Send one persuasive message at a time (140 character limit).
 4. Watch replies and adjust your next message.
    - Characters respond with their own messages, and you adjust your strategy based on their reactions.
 5. Win by convincing everyone before the timer expires.

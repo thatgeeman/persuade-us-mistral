@@ -52,12 +52,7 @@ export default function HowToPlay() {
                 <div style={{ display: "grid", gap: "8px" }}>
                     <div style={listItemStyle}>1. Choose mode: Human (you type) or YOLO (model plays and you watch, taking notes).</div>
                     <div style={listItemStyle}>2. Read the level goal and each person’s relationship context.</div>
-                    <div style={listItemStyle}>3. Send one persuasive message at a time.
-                        <div style={{ marginTop: "5px", display: "grid", gap: "4px" }}>
-                            <div style={{ ...listItemStyle, fontSize: "14px", color: "rgba(255,255,255,0.6)", paddingLeft: "16px" }}>🏂 Human mode: craft each message to persuade your group.</div>
-                            <div style={{ ...listItemStyle, fontSize: "14px", color: "rgba(255,255,255,0.6)", paddingLeft: "16px" }}>🦀 YOLO mode: responses are constrained to 70–100 characters for fair pacing.</div>
-                        </div>
-                    </div>
+                    <div style={listItemStyle}>3. Send one persuasive message at a time (140 character limit).</div>
                     <div style={listItemStyle}>4. Watch replies and adjust your next message. Characters respond based on their personality and how well your argument lands.</div>
                     <div style={listItemStyle}>5. Win by convincing everyone before the timer expires.</div>
                 </div>

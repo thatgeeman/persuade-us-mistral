@@ -482,7 +482,6 @@ const ChatGame = forwardRef(function ChatGame({ classic, player, onLevelComplete
         setLoading(true); loadingRef.current = true
 
         const shuffled = [...level.characters].sort(() => Math.random() - 0.5)
-        let roundEnded = false
 
         try {
             for (const character of shuffled) {
@@ -523,21 +522,16 @@ const ChatGame = forwardRef(function ChatGame({ classic, player, onLevelComplete
                     await new Promise(resolve => setTimeout(resolve, WIN_OVERLAY_DELAY_MS))
                     setGameOver(true); gameOverRef.current = true
                     setWon(true)
-                    roundEnded = true
                     break
                 }
             }
         } catch (err) {
             console.error(err)
             setTyping([])
-            roundEnded = true
         } finally {
             setLoading(false); loadingRef.current = false
         }
 
-        if (player?.playerType === "llm" && !roundEnded) {
-            setTimeout(() => llmGetAndSend(), 1200)
-        }
     }
 
     async function llmGetAndSend() {
@@ -564,7 +558,6 @@ const ChatGame = forwardRef(function ChatGame({ classic, player, onLevelComplete
                 throw new Error(data?.detail || "Failed to get YOLO message")
             }
             setLlmThinking(false)
-            llmBusyRef.current = false
             await new Promise(resolve => setTimeout(resolve, 1000))
             if (!gameOverRef.current) {
                 await sendMessage(data.message)
@@ -572,7 +565,11 @@ const ChatGame = forwardRef(function ChatGame({ classic, player, onLevelComplete
         } catch (err) {
             console.error(err)
             setLlmThinking(false)
+        } finally {
             llmBusyRef.current = false
+        }
+        if (!gameOverRef.current) {
+            setTimeout(() => llmGetAndSend(), 1200)
         }
     }
 

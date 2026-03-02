@@ -1,14 +1,14 @@
 import os
 from typing import Optional
 
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 from huggingface_hub import InferenceClient
 from huggingface_hub.errors import HfHubHTTPError
 from pydantic import BaseModel
 
 router = APIRouter()
-MIN_MESSAGE_CHARS = 70
-MAX_MESSAGE_CHARS = 100
+MIN_MESSAGE_CHARS = 30
+MAX_MESSAGE_CHARS = 140
 
 HF_MODELS = [
     "Qwen/Qwen2.5-7B-Instruct",
@@ -131,13 +131,11 @@ async def llm_player_message(req: LLMPlayerRequest) -> LLMPlayerResponse:
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_prompt},
             ],
-            max_tokens=80,
+            max_tokens=120,
             temperature=0.8,
         )
-    except HfHubHTTPError:
-        return LLMPlayerResponse(
-            message=build_fallback_message(req.goal), model=req.model
-        )
+    except HfHubHTTPError as e:
+        raise HTTPException(status_code=502, detail=f"HuggingFace API error: {e}")
 
     message = strip_wrapping_quotes(
         normalize_message(response.choices[0].message.content)
