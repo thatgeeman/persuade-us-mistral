@@ -4,6 +4,8 @@ PersuadeUs is an AI-powered social persuasion game built with Mistral AI and Hug
 You’re dropped into a group chat with a mission: convince everyone to say yes before the clock runs out. Each character is generated fresh by an LLM, with a distinct personality, resistance level, and reasons to push back. The better your argument, the faster they fold.
 
 Short Intro and Demo: [Youtube](https://www.youtube.com/watch?v=nJ-uTTTzvu4)
+ 
+<img src="assets/Human.png" width="850">
 
 ## What Is It?
 
